@@ -4,15 +4,21 @@ import { connectDB, disconnectDB } from './config/db.js';
 
 // Import Routes
 import movieRoutes from './routes/movieRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 
 config();
 connectDB();
 
 const app = express();
 
-//API ROUTES
+// JSON BODY PASING MIDDLEWARES
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // for HTML form submission parse to JSON format
 
+
+// API ROUTES
 app.use('/movies', movieRoutes);
+app.use('/auth', authRoutes);
 
 const PORT = 5001;
 app.listen(PORT, () => {
